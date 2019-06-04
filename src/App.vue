@@ -12,4 +12,14 @@
   // text-align: center;
   color: #2c3e50;
 }
+.full-container {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+.amap-logo,
+.amap-copyright {
+  display: none !important;
+}
 </style>

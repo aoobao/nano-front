@@ -7,34 +7,48 @@ export default [{
     component: Home
   },
   {
-    path: '/box-render',
-    name: 'box-render',
-    text: '渲染纹理矩形',
-    component: () => import( /* webpackChunkName:"box-render2" */ './views/BoxRender.vue')
-  }, {
-    path: '/pano-render',
-    name: 'pano-render',
-    text: '全景图渲染(6张图)',
-    component: () => import( /* webpackChunkName:"PanoRender" */ './views/PanoRender.vue')
-  },{
-    path:'/pano-render2',
-    name:'/pano-render2',
-    text:'全景图渲染',
-    component: () => import( /* webpackChunkName:"PanoRender" */ './views/PanoRender2.vue')
-  },{
-    path:'/shader-render',
-    name:'/shader-render',
-    text:'自定义shader渲染',
-    component: () => import( /* webpackChunkName:"ShaderRender" */ './views/ShaderRender.vue')
-  },{
-    path:'/point-render',
-    name:'/point-render',
-    text:'粒子渲染',
-    component: () => import( /* webpackChunkName:"PointRender" */ './views/PointRender.vue')
-  },{
-    path:'/pointmove-render',
-    name:'/pointmove-render',
-    text:'粒子移动demo',
-    component: () => import( /* webpackChunkName:"PointRender" */ './views/PointMove.vue')
+    path: '/login',
+    name: 'login',
+    text: '登录',
+    component: () => import( /* webpackChunkName:"bank" */ './views/Login.vue')
+  },
+  {
+    path: '/register',
+    name: 'register',
+    text: '注册',
+    component: () => import( /* webpackChunkName:"bank" */ './views/Register.vue')
+  },
+  {
+    path: '/projectinfo',
+    name: 'projectInfo',
+    text: '项目详情',
+    component: () => import( /* webpackChunkName:"projectinfo" */ './views/bank/ProjectInfo.vue')
+  },
+  {
+    path: '/HomeView',
+    name: 'homeview',
+    text: '后台入口页',
+    component: () => import( /* webpackChunkName:"bank" */ './views/bank/HomeView.vue'),
+    children: [
+      //   {
+      //   path: '',
+      //   redirect: {
+      //     name: 'mapview'
+      //   }
+      // },
+      {
+        path: 'mapview',
+        name: 'mapview',
+        text: '后台地图展示',
+        isMenu: true,
+        component: () => import( /* webpackChunkName:"bank" */ './views/bank/MapView.vue')
+      }, {
+        path: 'projectlist',
+        name: 'projectList',
+        text: '项目列表',
+        isMenu: true,
+        component: () => import( /* webpackChunkName:"bank" */ './views/bank/ProjectList.vue')
+      }
+    ]
   }
 ]
