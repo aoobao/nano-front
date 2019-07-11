@@ -16,7 +16,10 @@
             </div>
           </mt-tab-container-item>
           <mt-tab-container-item id="tab2">
-            bbb
+            <mt-radio title="图片类型" v-model="imageType" :options="[{label:'6方向图片',value:'1'}, {label:'360°全景图',value:'2'}]">
+            </mt-radio>
+            <upload-image6 v-show="imageType === '1'" />
+            <UploadImage v-show="imageType === '2'" />
           </mt-tab-container-item>
         </mt-tab-container>
 
@@ -37,8 +40,10 @@
 <script>
 import MapSelect from '@/components/map/MapSelect'
 import MaskDialog from '@/components/bank/MaskDialog'
+import UploadImage from './UploadImage'
+import UploadImage6 from './UploadImage6'
 export default {
-  components: { MapSelect, MaskDialog },
+  components: { MapSelect, MaskDialog, UploadImage, UploadImage6 },
   props: {
     value: Boolean,
     point: Object,
@@ -50,7 +55,8 @@ export default {
   data () {
     return {
       data: {},
-      selected: 'tab1'
+      selected: 'tab2',
+      imageType: '2'
     }
   },
   computed: {

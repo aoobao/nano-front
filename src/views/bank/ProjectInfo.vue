@@ -11,7 +11,10 @@
           <mt-button size="small" @click="choosePosition()">修改</mt-button>
         </mt-field>
         <mt-field label="图片">
-          <img class="main-image" :src="imageSrc">
+          <!-- <img class="main-image" :src="imageSrc"> -->
+          <div class="main-image">
+            <UploadImage />
+          </div>
         </mt-field>
       </div>
       <div class="new">
@@ -29,18 +32,6 @@
           <mt-button size="small" @click="choosePoint(index)">修改</mt-button>
         </mt-field>
       </div>
-      <!-- <div class="card">
-        <mt-field label="点位名称" value="点位1" state="error"></mt-field>
-        <mt-field label="点位坐标" readonly disableClear value="xxx">
-          <mt-button size="small">修改</mt-button>
-        </mt-field>
-      </div>
-      <div class="card">
-        <mt-field label="点位名称" value="点位1" state="error"></mt-field>
-        <mt-field label="点位坐标" readonly disableClear value="xxx">
-          <mt-button size="small">修改</mt-button>
-        </mt-field>
-      </div> -->
       <mt-button type="primary" size="large" class="submit" @click="submit">确定</mt-button>
     </div>
 
@@ -53,30 +44,17 @@
 <script>
 import DialogChoose from '@/components/map/DialogChoose'
 import PointInfo from './PointInfo'
+import UploadImage from '@/components/bank/UploadImage'
 import { errMessage, confirm } from '@/assets/js/utils'
 export default {
-  components: { DialogChoose, PointInfo },
+  components: { DialogChoose, PointInfo, UploadImage },
+  props: {
+    pid: [String, Number]
+  },
   data () {
-    let data = {
-      id: 1,
-      name: '设备名称',
-      imageSrc: './images/default_bank.jpg',
-      longitude: null,
-      latitude: null,
-      points: [{
-        id: 1,
-        name: '部件名称',
-        longitude: 0.1,
-        latitude: 0.1
-      }, {
-        id: 2,
-        name: '部件名称2',
-        longitude: 0.3,
-        latitude: 0.2
-      }]
-    }
+
     return {
-      data,
+      data: {},
       show: false,
       pointShow: false,
       selectPoint: 0,
@@ -87,7 +65,8 @@ export default {
   computed: {
 
     points () {
-      return this.data.points || []
+      let data = this.data || {}
+      return data.points || []
     },
     point () {
       if (this.selectPoint >= 0) {
@@ -97,17 +76,59 @@ export default {
       }
     },
     imageSrc () {
-      return this.data.imageSrc
+      return this.data ? this.data.imageSrc : null
     },
     location () {
-      if (this.data && this.data.longitude !== null && this.data.latitude !== null) {
+      if (this.data && this.data.longitude != null && this.data.latitude != null) {
         return `${this.data.longitude},${this.data.latitude}`
       } else {
         return '-'
       }
     }
   },
+  created () {
+    this.init()
+  },
   methods: {
+    init () {
+      if (this.pid == 0) {
+        // 新增
+        let data = {
+          id: 0,
+          name: null,
+          imageSrc: null,
+          longitude: null,
+          latitude: null,
+          points: []
+        }
+        this.data = data
+
+      } else {
+        // 抓取项目详情 todo
+        this.getInfo()
+      }
+    },
+    getInfo () {
+      let data = {
+        id: 1,
+        name: '设备名称',
+        imageSrc: './images/default_bank.jpg',
+        longitude: null,
+        latitude: null,
+        points: [{
+          id: 1,
+          name: '部件名称',
+          longitude: 0.1,
+          latitude: 0.1
+        }, {
+          id: 2,
+          name: '部件名称2',
+          longitude: 0.3,
+          latitude: 0.2
+        }]
+      }
+      this.data = data
+    },
     changeName (point, name) {
       point.name = name
     },
@@ -200,7 +221,8 @@ function detailPointNumber (number) {
     border: 1px solid #888;
     border-radius: 4px;
     .main-image {
-      width: 300px;
+      width: 200px;
+      height: 200px;
       margin: 20px 30px;
     }
   }

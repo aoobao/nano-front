@@ -4,6 +4,7 @@ import DrawerLayout from 'vue-drawer-layout'
 import App from './App.vue'
 import router from './router'
 import store from './store/index'
+import axios from '@/assets/js/axios'
 
 // 统一浏览器css样式
 import 'normalize.css'
@@ -20,6 +21,7 @@ import * as THREE from 'three';
 window.THREE = THREE
 
 Vue.config.productionTip = false
+Vue.prototype.$http = axios
 
 new Vue({
   router,

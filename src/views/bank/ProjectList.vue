@@ -3,7 +3,7 @@
     <div class="search-body">
       <input type="search" v-model="value" placeholder="搜索" />
       <mt-button class="button" type="primary" size="small">搜索</mt-button>
-      <mt-button class="button" size="small">新建项目</mt-button>
+      <mt-button class="button" size="small" @click="addNewProject">新建项目</mt-button>
     </div>
 
     <div class="project-list">
@@ -33,7 +33,10 @@ export default {
     },
     getInfo () {
       console.log('getinfo')
-      this.$router.push({ name: 'projectInfo' })
+      this.$router.push({ name: 'projectInfo', params: { pid: 1 } })
+    },
+    addNewProject () {
+      this.$router.push({ name: 'projectInfo', params: { pid: 0 } })
     }
   }
 }

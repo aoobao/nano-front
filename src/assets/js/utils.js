@@ -1,3 +1,4 @@
+import store from 'store';
 import {
   Toast,
   MessageBox
@@ -22,8 +23,17 @@ export function confirm(msg, title) {
   })
 }
 
+export function setItem(key, value) {
+  return store.set(key, value)
+}
+
+export function getItem(key) {
+  return store.get(key)
+}
 
 export default {
   errMessage,
-  confirm
+  confirm,
+  setItem,
+  getItem
 }

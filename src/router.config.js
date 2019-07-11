@@ -19,10 +19,11 @@ export default [{
     component: () => import( /* webpackChunkName:"bank" */ './views/Register.vue')
   },
   {
-    path: '/projectinfo',
+    path: '/projectinfo/:pid',
     name: 'projectInfo',
     text: '项目详情',
-    component: () => import( /* webpackChunkName:"projectinfo" */ './views/bank/ProjectInfo.vue')
+    component: () => import( /* webpackChunkName:"projectinfo" */ './views/bank/ProjectInfo.vue'),
+    props: true
   },
   {
     path: '/HomeView',

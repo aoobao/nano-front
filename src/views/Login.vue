@@ -16,11 +16,14 @@
   </div>
 </template>
 <script>
+import { errMessage } from '@/assets/js/utils'
 export default {
   data () {
     return {
-      username: null,
-      password: null
+      // username: null,
+      // password: null
+      username: 'admin',
+      password: 'admin'
     }
   },
   methods: {
@@ -29,8 +32,22 @@ export default {
       this.$router.push({ name: 'register' })
     },
     goBank () {
-      this.$router.push({
-        name: 'mapview' // use default route name
+      let data = {
+        key: this.username,
+        pwd: this.password
+      }
+
+      if (!data.key || !data.pwd) {
+        errMessage('账号密码不可为空')
+        return
+      }
+
+      this.$store.dispatch('login', data).then(rst => {
+        if (rst.isok) {
+          this.$router.push({
+            name: 'mapview' // use default route name
+          })
+        }
       })
     }
   }
